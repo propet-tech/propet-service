@@ -1,2 +1,4 @@
-package br.com.senai.propetservice.data;public class ServiceDto {
+package br.com.senai.propetservice.data;
+
+public class PetShopServiceDto {
 }
