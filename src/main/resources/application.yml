@@ -6,13 +6,20 @@ spring:
       enabled: ALWAYS
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DATABASE_IP_ANDRESS}:${DATABASE_PORT}/propet?characterEncoding=utf8?useTimezone=true?serverTimezone=UTC
-    password: ${DATABASE_PASSWD}
-    username: ${DATABASE_USER}
+    url: jdbc:postgresql://${POSTGRES_IP}:${POSTGRES_PORT}/${POSTGRES_DB}?characterEncoding=utf8?useTimezone=true?serverTimezone=UTC
+    password: ${POSTGRES_PASSWD}
+    username: ${POSTGRES_USER}
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+    show-sql: false
+  mvc:
+    servlet:
+      path: "/api"
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    path: "/swagger-ui.html"
