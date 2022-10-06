@@ -15,6 +15,7 @@ public class OpenApiConfig {
                 new Info()
                         .title("ProPet Service API")
                         .description("Backend of ProPet System")
+                        .version("v1")
         );
     }
 }
