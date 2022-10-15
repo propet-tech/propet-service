@@ -1,14 +1,11 @@
 package br.com.senai.propetservice.controller;
 
-import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.data.PetShopServiceDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import javax.print.attribute.standard.Media;
 
 @RestController
 @Tag(name = "Service", description = "PetShop services endpoint")
@@ -30,12 +27,6 @@ public class PetShopServiceRest {
     @Operation(summary = "Find petshop service by id")
     @GetMapping(value = "/{service_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PetShopServiceDto getPetShopService(@PathVariable("service_id") Long ind) {
-        return null;
-    }
-
-    @Operation(summary = "Get pet for a particular petshop service")
-    @GetMapping(value = "/{service_id}/pet", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PetDto getPetFromPetShopService(@PathVariable("service_id") Long id) {
         return null;
     }
 

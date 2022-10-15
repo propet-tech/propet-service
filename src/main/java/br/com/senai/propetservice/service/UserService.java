@@ -19,12 +19,21 @@ public class UserService {
                 ModelToDto.parseObject(user, User.class)
         );
     }
-
-    public UserDto getUserById(long id) {
+    public UserDto getUserById(Long id) {
         var user = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("User Not Found")
         );
 
         return ModelToDto.parseObject(user, UserDto.class);
+    }
+
+    public void updateUser(UserDto user) {
+        repository.save(
+                ModelToDto.parseObject(user, User.class)
+        );
+    }
+
+    public void removeUser(Long id) {
+        repository.deleteById(id);
     }
 }

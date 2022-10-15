@@ -37,7 +37,7 @@ public class UserRest {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Update user information", tags = {"User"})
     public void updateUser(@RequestBody UserDto user) {
-
+        service.updateUser(user);
     }
 
     @GetMapping(value = "/{user_id}/pet")
@@ -49,6 +49,6 @@ public class UserRest {
     @DeleteMapping(value = "/{user_id}")
     @Operation(summary = "Remove a user", tags = {"User"})
     public void deleteUser(@PathVariable("user_id") Long id) {
-
+        service.removeUser(id);
     }
 }
