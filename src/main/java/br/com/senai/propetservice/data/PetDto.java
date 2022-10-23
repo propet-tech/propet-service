@@ -2,7 +2,6 @@ package br.com.senai.propetservice.data;
 
 import br.com.senai.propetservice.models.User;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 public class PetDto implements Serializable {

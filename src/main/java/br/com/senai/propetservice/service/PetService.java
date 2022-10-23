@@ -13,34 +13,48 @@ import org.springframework.stereotype.Service;
 public class PetService {
 
     @Autowired
-    private PetRepo respositoy;
+    private PetRepo repository;
 
     public void createPet(PetDto pet) {
-        respositoy.save(
+        repository.save(
                 ModelToDto.parseObject(pet, Pet.class)
         );
     }
 
     public PetDto getPet(Long id) {
-        Pet pet = respositoy.findById(id).orElseThrow(
+        Pet pet = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("Pet Not Found")
         );
         return ModelToDto.parseObject(pet, PetDto.class);
     }
 
     public Page<PetDto> getAllPets(Pageable pageable) {
-        return respositoy.findAll(pageable).map(
+        return repository.findAll(pageable).map(
                 pet -> ModelToDto.parseObject(pet, PetDto.class)
         );
     }
 
+    public Page<PetDto> getAllPetsByOwner(Long userId, Pageable pageable) {
+        return repository.getAllByUser(pageable, userId).map(
+            pet -> ModelToDto.parseObject(pet, PetDto.class)
+        );
+    }
+
     public void deletePet(Long id) {
-        respositoy.deleteById(id);
+        repository.deleteById(id);
     }
 
     public void updatePet(PetDto pet) {
-        respositoy.save(
+        repository.save(
                 ModelToDto.parseObject(pet, Pet.class)
         );
+    }
+
+    public Long getNumberOfPets() {
+        return repository.count();
+    }
+    
+    public Long getNumberOfPetsByUser(Long userId) {
+       return repository.countByUser(userId); 
     }
 }

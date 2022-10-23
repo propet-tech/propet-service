@@ -57,4 +57,10 @@ public class PetRest {
         service.updatePet(pet);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping(value = "/count")
+    @Operation(summary = "count number of pets for all users", tags = {"Pet"})
+    public Long countPet() {
+            return service.getNumberOfPets();
+    }
 }
