@@ -1,7 +1,5 @@
 package br.com.senai.propetservice.data;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.util.Objects;
 

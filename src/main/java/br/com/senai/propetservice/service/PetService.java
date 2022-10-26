@@ -4,6 +4,8 @@ import br.com.senai.propetservice.converters.ModelToDto;
 import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.models.Pet;
 import br.com.senai.propetservice.repository.PetRepo;
+import br.com.senai.propetservice.repository.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,9 @@ public class PetService {
 
     @Autowired
     private PetRepo repository;
+
+    @Autowired
+    private UserRepo userRepo;
 
     public void createPet(PetDto pet) {
         repository.save(
@@ -55,6 +60,9 @@ public class PetService {
     }
     
     public Long getNumberOfPetsByUser(Long userId) {
-       return repository.countByUser(userId); 
+        if (userRepo.existsById(userId))
+            return repository.countByUser(userId); 
+        else
+            throw new RuntimeException("User not found");
     }
 }

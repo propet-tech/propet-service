@@ -19,6 +19,7 @@ public class UserService {
                 ModelToDto.parseObject(user, User.class)
         );
     }
+
     public UserDto getUserById(Long id) {
         var user = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("User Not Found")
