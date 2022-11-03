@@ -1,11 +1,13 @@
 package br.com.senai.propetservice.service;
 
 import br.com.senai.propetservice.converters.ModelToDto;
+import br.com.senai.propetservice.converters.PetMapper;
 import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.models.Pet;
 import br.com.senai.propetservice.repository.PetRepo;
 import br.com.senai.propetservice.repository.UserRepo;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,9 +22,11 @@ public class PetService {
     @Autowired
     private UserRepo userRepo;
 
+    private PetMapper mapper = Mappers.getMapper(PetMapper.class);
+
     public void createPet(PetDto pet) {
         repository.save(
-                ModelToDto.parseObject(pet, Pet.class)
+            mapper.map(pet)
         );
     }
 
@@ -30,12 +34,12 @@ public class PetService {
         Pet pet = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("Pet Not Found")
         );
-        return ModelToDto.parseObject(pet, PetDto.class);
+        return ModelToDto.parsePet(pet);
     }
 
     public Page<PetDto> getAllPets(Pageable pageable) {
         return repository.findAll(pageable).map(
-                pet -> ModelToDto.parseObject(pet, PetDto.class)
+            pet -> mapper.map(pet)
         );
     }
 

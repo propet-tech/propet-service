@@ -2,19 +2,15 @@ package br.com.senai.propetservice.data;
 
 import java.io.Serializable;
 
-public class PetDto implements Serializable {
-    private Long id;
+public class PetShopDto implements Serializable {
 
-    private String name;
+    private Long id;
 
     private Long userId;
 
-    private Float weight;
+    private Long petId;
 
     private String description;
-
-    public PetDto() {
-    }
 
     public Long getId() {
         return id;
@@ -22,14 +18,6 @@ public class PetDto implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Long getUserId() {
@@ -40,12 +28,12 @@ public class PetDto implements Serializable {
         this.userId = userId;
     }
 
-    public Float getWeight() {
-        return weight;
+    public Long getPetId() {
+        return petId;
     }
 
-    public void setWeight(Float weight) {
-        this.weight = weight;
+    public void setPetId(Long petId) {
+        this.petId = petId;
     }
 
     public String getDescription() {
