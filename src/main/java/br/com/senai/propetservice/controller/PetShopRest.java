@@ -31,21 +31,23 @@ public class PetShopRest {
     }
 
     @Operation(summary = "Delete a petshop service")
-    @DeleteMapping(value = "/{service_id}")
-    public void deleteService(@PathVariable("service_id") Long id) {
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<?> deleteService(@PathVariable("id") Long id) {
         petShopService.deleteService(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Operation(summary = "Find petshop service by id")
-    @GetMapping(value = "/{service_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PetShopDto getPetShopService(@PathVariable("service_id") Long id) {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PetShopDto getPetShopService(@PathVariable("id") Long id) {
         return petShopService.getPetShopService(id);
     }
 
     @Operation(summary = "Update info for petshop service")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updatePetShopService(@RequestBody PetShopDto service) {
+    public ResponseEntity<?> updatePetShopService(@RequestBody PetShopDto service) {
         petShopService.updatePetShop(service);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Operation(summary = "Get all available petshop services")

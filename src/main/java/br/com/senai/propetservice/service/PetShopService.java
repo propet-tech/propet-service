@@ -1,13 +1,14 @@
 package br.com.senai.propetservice.service;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.senai.propetservice.converters.ModelToDto;
+import br.com.senai.propetservice.converters.PetShopMapper;
 import br.com.senai.propetservice.data.PetShopDto;
-import br.com.senai.propetservice.models.PetShop;
 import br.com.senai.propetservice.repository.PetShopRepo;
 
 @Service
@@ -16,9 +17,11 @@ public class PetShopService {
     @Autowired
     private PetShopRepo petShopRepo;
 
+    private PetShopMapper mapper = Mappers.getMapper(PetShopMapper.class);
+
     public Page<PetShopDto> getAllServices(Pageable pageable) {
         return petShopRepo.findAll(pageable).map(
-            petshop -> ModelToDto.parsePetShop(petshop)
+            petshop -> mapper.map(petshop)
         );
     }
 

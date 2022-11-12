@@ -1,17 +1,17 @@
 package br.com.senai.propetservice.service;
 
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import br.com.senai.propetservice.converters.ModelToDto;
 import br.com.senai.propetservice.converters.PetMapper;
 import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.models.Pet;
 import br.com.senai.propetservice.repository.PetRepo;
 import br.com.senai.propetservice.repository.UserRepo;
-
-import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 @Service
 public class PetService {
@@ -34,6 +34,7 @@ public class PetService {
         Pet pet = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("Pet Not Found")
         );
+        pet.getId();
         return ModelToDto.parsePet(pet);
     }
 

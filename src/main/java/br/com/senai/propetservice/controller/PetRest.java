@@ -28,9 +28,9 @@ public class PetRest {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping(value = "/{pet_id}")
+    @GetMapping(value = "/{id}")
     @Operation(summary = "Get pet by id", tags = {"Pet"})
-    public PetDto getPet(@PathVariable("pet_id") Long petId) {
+    public PetDto getPet(@PathVariable("id") Long petId) {
         return service.getPet(petId);
     }
 
@@ -44,23 +44,23 @@ public class PetRest {
         return service.getAllPets(pageable);
     }
 
-    @DeleteMapping(value = "/{pet_id}")
+    @DeleteMapping(value = "/{id}")
     @Operation(summary = "Remove a pet", tags = {"Pet"})
-    public ResponseEntity<?> deletePet(@PathVariable("pet_id") Long id) {
+    public ResponseEntity<?> deletePet(@PathVariable("id") Long id) {
         service.deletePet(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Update pet information", tags = {"Pet"})
     public ResponseEntity<?> updatePet(@RequestBody PetDto pet) {
         service.updatePet(pet);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping(value = "/count")
     @Operation(summary = "count number of pets for all users", tags = {"Pet"})
     public Long countPet() {
-            return service.getNumberOfPets();
+        return service.getNumberOfPets();
     }
 }

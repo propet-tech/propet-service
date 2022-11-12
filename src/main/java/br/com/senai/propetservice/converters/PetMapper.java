@@ -8,9 +8,6 @@ import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.models.Pet;
 import br.com.senai.propetservice.models.User;
 
-/**
- * PetMapper
- */
 @Mapper
 public interface PetMapper {
 

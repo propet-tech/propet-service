@@ -42,22 +42,23 @@ public class UserRest {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping(value = "/{user_id}")
+    @GetMapping(value = "/{id}")
     @Operation(summary = "Get a user by id", tags = {"User"})
-    public UserDto getUserById(@PathVariable("user_id") Long id) {
+    public UserDto getUserById(@PathVariable("id") Long id) {
         return service.getUserById(id);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Update user information", tags = {"User"})
-    public void updateUser(@RequestBody UserDto user) {
+    public ResponseEntity<?> updateUser(@RequestBody UserDto user) {
         service.updateUser(user);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping(value = "/{user_id}/pet")
+    @GetMapping(value = "/{id}/pet")
     @Operation(summary = "Get all pets of specific user", tags = {"User"})
     public Page<PetDto> getAllPetsByOwner(
-        @PathVariable("user_id") Long userId,
+        @PathVariable("id") Long userId,
         @RequestParam("page") Integer page,
         @RequestParam("limit") Integer size
     ) {
@@ -65,15 +66,16 @@ public class UserRest {
         return petService.getAllPetsByOwner(userId, pageable);    
     }
 
-    @DeleteMapping(value = "/{user_id}")
+    @DeleteMapping(value = "/{id}")
     @Operation(summary = "Remove a user", tags = {"User"})
-    public void deleteUser(@PathVariable("user_id") Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
         service.removeUser(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @GetMapping(value = "/{user_id}/pet/count")
+    @GetMapping(value = "/{id}/pet/count")
     @Operation(summary = "count number of pets of specific user")
-    public Long countPetOfUser(@PathVariable("user_id") Long userId) {
+    public Long countPetOfUser(@PathVariable("id") Long userId) {
         return petService.getNumberOfPetsByUser(userId);
     }
 }
