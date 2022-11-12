@@ -1,5 +1,9 @@
 server:
   port: 8088
+  cors:
+    origin-patterns: 
+      - locahost
+      - bacate
 spring:
   output:
     ansi:

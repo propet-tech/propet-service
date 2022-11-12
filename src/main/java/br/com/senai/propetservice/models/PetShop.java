@@ -1,6 +1,7 @@
 package br.com.senai.propetservice.models;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,5 +34,11 @@ public class PetShop implements Serializable {
 
     @Column(nullable = false)
     private Boolean active;
+
+    @Column
+    private LocalDateTime startDateTime;
+
+    @Column
+    private LocalDateTime doneDateTime;
 
 }

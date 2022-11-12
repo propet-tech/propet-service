@@ -67,7 +67,7 @@ public class PetShopService {
     public void updatePetShop(PetShopDto service) {
         if (!petShopRepo.existsById(service.getId())) {
             throw new NotFoundException( 
-                String.format("PetShop sevice '%d' not found", service.getId())
+                String.format("PetShop sevice id: %d not found", service.getId())
             );
         }
 
