@@ -11,4 +11,5 @@ public class PetShopDto implements Serializable {
     private Long userId;
     private Long petId;
     private String description;
+    private Boolean active;
 }

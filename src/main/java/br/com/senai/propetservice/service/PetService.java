@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.senai.propetservice.converters.ModelToDto;
+import br.com.senai.propetservice.converters.GenericMapper;
 import br.com.senai.propetservice.converters.PetMapper;
 import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.models.Pet;
@@ -34,8 +34,7 @@ public class PetService {
         Pet pet = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("Pet Not Found")
         );
-        pet.getId();
-        return ModelToDto.parsePet(pet);
+        return mapper.map(pet);
     }
 
     public Page<PetDto> getAllPets(Pageable pageable) {
@@ -46,7 +45,7 @@ public class PetService {
 
     public Page<PetDto> getAllPetsByOwner(Long userId, Pageable pageable) {
         return repository.getAllByUser(pageable, userId).map(
-            pet -> ModelToDto.parseObject(pet, PetDto.class)
+            pet -> GenericMapper.parseObject(pet, PetDto.class)
         );
     }
 
@@ -56,7 +55,7 @@ public class PetService {
 
     public void updatePet(PetDto pet) {
         repository.save(
-                ModelToDto.parseObject(pet, Pet.class)
+                GenericMapper.parseObject(pet, Pet.class)
         );
     }
 

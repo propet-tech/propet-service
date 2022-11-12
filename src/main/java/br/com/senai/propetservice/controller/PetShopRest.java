@@ -60,6 +60,19 @@ public class PetShopRest {
         return petShopService.getAllServices(pageable);
     }
 
+    @GetMapping(
+        value = "/active",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @Operation(summary = "Get all active petshop services")
+    public Page<PetShopDto> getAllActive(
+        @RequestParam("page") Integer page,
+        @RequestParam("size") Integer size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return petShopService.getAllActive(pageable);
+    }
+
     @Operation(summary = "Get number of petshop services availables")
     @GetMapping(value = "/count")
     public Long getNumberOfPetShop() {

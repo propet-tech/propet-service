@@ -6,7 +6,6 @@ import org.mapstruct.Mappings;
 
 import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.models.Pet;
-import br.com.senai.propetservice.models.User;
 
 @Mapper
 public interface PetMapper {
@@ -17,10 +16,8 @@ public interface PetMapper {
     PetDto map(Pet pet);
 
     @Mappings({
-        @Mapping(target = "user", source = "pet.userId")
+        @Mapping(target = "user.id", source = "pet.userId")
     })
     Pet map(PetDto pet);
 
-    @Mapping(target = "id", source = "id")
-    User map(Long id);
 }

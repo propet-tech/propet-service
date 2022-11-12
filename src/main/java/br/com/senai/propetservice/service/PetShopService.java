@@ -6,9 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.senai.propetservice.converters.ModelToDto;
+import br.com.senai.propetservice.converters.GenericMapper;
 import br.com.senai.propetservice.converters.PetShopMapper;
 import br.com.senai.propetservice.data.PetShopDto;
+import br.com.senai.propetservice.models.exceptions.NotFoundException;
 import br.com.senai.propetservice.repository.PetShopRepo;
 
 @Service
@@ -19,6 +20,12 @@ public class PetShopService {
 
     private PetShopMapper mapper = Mappers.getMapper(PetShopMapper.class);
 
+    public Page<PetShopDto> getAllActive(Pageable pageable) {
+        return petShopRepo.findAllActive(pageable).map(
+            petshop -> mapper.map(petshop)
+        );
+    }
+
     public Page<PetShopDto> getAllServices(Pageable pageable) {
         return petShopRepo.findAll(pageable).map(
             petshop -> mapper.map(petshop)
@@ -26,19 +33,28 @@ public class PetShopService {
     }
 
     public void createService(PetShopDto petShop) {
+        petShop.setId(null);
         petShopRepo.save(
-            ModelToDto.parsePetShop(petShop)
+            mapper.map(petShop)
         );
     }
 
     public void deleteService(Long id) {
+        if (!petShopRepo.existsById(id)){
+            throw new NotFoundException( 
+                String.format("PetShop sevice '%d' not found", id) 
+            );
+        }
+
         petShopRepo.deleteById(id);
     }
 
     public PetShopDto getPetShopService(Long id) {
-        return ModelToDto.parseObject(
+        return GenericMapper.parseObject(
             petShopRepo.findById(id).orElseThrow(
-                () -> new RuntimeException("PetShop not found")
+                () -> new NotFoundException(
+                    String.format("PetShop sevice '%d' not found", id)
+                )
             ),
             PetShopDto.class
         );
@@ -49,8 +65,14 @@ public class PetShopService {
     }
 
     public void updatePetShop(PetShopDto service) {
+        if (!petShopRepo.existsById(service.getId())) {
+            throw new NotFoundException( 
+                String.format("PetShop sevice '%d' not found", service.getId())
+            );
+        }
+
         petShopRepo.save(
-            ModelToDto.parsePetShop(service)
+            mapper.map(service)
         );
     }
 }

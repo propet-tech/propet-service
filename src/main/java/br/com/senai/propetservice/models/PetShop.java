@@ -31,4 +31,7 @@ public class PetShop implements Serializable {
     @Column
     private String description;
 
+    @Column(nullable = false)
+    private Boolean active;
+
 }

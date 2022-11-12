@@ -1,6 +1,6 @@
 package br.com.senai.propetservice.service;
 
-import br.com.senai.propetservice.converters.ModelToDto;
+import br.com.senai.propetservice.converters.GenericMapper;
 import br.com.senai.propetservice.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class UserService {
 
     public void create(UserDto user) {
         repository.save(
-                ModelToDto.parseObject(user, User.class)
+                GenericMapper.parseObject(user, User.class)
         );
     }
 
@@ -25,12 +25,12 @@ public class UserService {
                 () -> new RuntimeException("User Not Found")
         );
 
-        return ModelToDto.parseObject(user, UserDto.class);
+        return GenericMapper.parseObject(user, UserDto.class);
     }
 
     public void updateUser(UserDto user) {
         repository.save(
-                ModelToDto.parseObject(user, User.class)
+                GenericMapper.parseObject(user, User.class)
         );
     }
 

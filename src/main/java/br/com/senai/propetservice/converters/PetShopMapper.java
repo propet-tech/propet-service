@@ -15,4 +15,11 @@ public interface PetShopMapper {
         @Mapping(source = "petshop.pet.id", target = "petId")
     })
     PetShopDto map(PetShop petshop);
+
+
+    @Mappings({
+        @Mapping(source = "dto.userId", target = "user.id"),
+        @Mapping(source = "dto.petId", target = "pet.id")
+    })
+    PetShop map(PetShopDto dto);
 }
