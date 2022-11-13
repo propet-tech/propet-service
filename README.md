@@ -1,5 +1,7 @@
 # ProPet Service API
 
+![Docker Workflow](https://github.com/propet-tech/propet-service/actions/workflows/docker-image.yml/badge.svg)
+
 Backend do Sistema ProPet
 
 ## Docker Image
