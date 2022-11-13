@@ -21,7 +21,7 @@ jobs:
         cache: maven
         
     - name: build with maven
-      run: ./mvnw clean package -DskipTests
+      run: ./mvnw clean package
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/propet-service:latest
@@ -34,4 +34,3 @@ jobs:
     
     - name: Push to Dockerhub
       run: docker push ${{ secrets.DOCKER_USER }}/propet-service:latest
-
