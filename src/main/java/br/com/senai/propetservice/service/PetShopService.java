@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.senai.propetservice.converters.GenericMapper;
 import br.com.senai.propetservice.converters.PetShopMapper;
 import br.com.senai.propetservice.data.PetShopDto;
 import br.com.senai.propetservice.models.exceptions.NotFoundException;
@@ -50,13 +49,12 @@ public class PetShopService {
     }
 
     public PetShopDto getPetShopService(Long id) {
-        return GenericMapper.parseObject(
+        return mapper.map(
             petShopRepo.findById(id).orElseThrow(
                 () -> new NotFoundException(
                     String.format("PetShop sevice '%d' not found", id)
                 )
-            ),
-            PetShopDto.class
+            )
         );
     }
 
