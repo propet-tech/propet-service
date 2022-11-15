@@ -11,14 +11,14 @@ import br.com.senai.propetservice.models.PetShop;
 public interface PetShopMapper {
 
     @Mappings({
-        @Mapping(source = "petshop.user.id", target = "userId"),
+        @Mapping(source = "petshop.client.id", target = "clientId"),
         @Mapping(source = "petshop.pet.id", target = "petId")
     })
     PetShopDto map(PetShop petshop);
 
 
     @Mappings({
-        @Mapping(source = "dto.userId", target = "user.id"),
+        @Mapping(source = "dto.clientId", target = "client.id"),
         @Mapping(source = "dto.petId", target = "pet.id")
     })
     PetShop map(PetShopDto dto);

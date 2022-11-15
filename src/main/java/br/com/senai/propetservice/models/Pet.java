@@ -27,7 +27,7 @@ public class Pet implements Serializable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private User user;
+    private Client client;
 
     @Column
     private Float weight;

@@ -9,7 +9,7 @@ import lombok.Data;
 public class PetShopDto implements Serializable {
 
     private Long id;
-    private Long userId;
+    private Long clientId;
     private Long petId;
     private String description;
     private Boolean active;

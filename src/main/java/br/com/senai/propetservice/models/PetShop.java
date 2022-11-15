@@ -24,7 +24,7 @@ public class PetShop implements Serializable {
     private Long id;
 
     @ManyToOne
-    private User user;
+    private Client client;
 
     @OneToOne
     private Pet pet;

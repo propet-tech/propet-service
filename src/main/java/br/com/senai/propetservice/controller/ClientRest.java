@@ -18,62 +18,62 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.senai.propetservice.data.PetDto;
-import br.com.senai.propetservice.data.UserDto;
+import br.com.senai.propetservice.data.ClientDto;
 import br.com.senai.propetservice.service.PetService;
-import br.com.senai.propetservice.service.UserService;
+import br.com.senai.propetservice.service.ClientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/user")
-@Tag(name = "User", description = "Endpoint to manager users")
-public class UserRest {
+@RequestMapping("/client")
+@Tag(name = "Client", description = "Endpoint to manager clients")
+public class ClientRest {
 
     @Autowired
-    private UserService service;
+    private ClientService service;
 
     @Autowired
     private PetService petService;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Create a new user", tags = {"User"})
-    public ResponseEntity<?> createUser(@RequestBody UserDto user) {
-        service.create(user);
+    @Operation(summary = "Create a new client", tags = {"Client"})
+    public ResponseEntity<?> createClient(@RequestBody ClientDto client) {
+        service.create(client);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(value = "/{id}")
-    @Operation(summary = "Get a user by id", tags = {"User"})
-    public UserDto getUserById(@PathVariable("id") Long id) {
-        return service.getUserById(id);
+    @Operation(summary = "Get a client by id", tags = {"Client"})
+    public ClientDto getClientById(@PathVariable("id") Long id) {
+        return service.getClientById(id);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Update user information", tags = {"User"})
-    public ResponseEntity<?> updateUser(@RequestBody UserDto user) {
-        service.updateUser(user);
+    @Operation(summary = "Update client information", tags = {"Client"})
+    public ResponseEntity<?> updateClient(@RequestBody ClientDto client) {
+        service.updateClient(client);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping(value = "/{id}/pet")
-    @Operation(summary = "Get all pets of specific user", tags = {"User"})
+    @Operation(summary = "Get all pets of specific client", tags = {"Client"})
     public Page<PetDto> getAllPetsByOwner(
-        @PathVariable("id") Long userId,
+        @PathVariable("id") Long clientId,
         @ParameterObject @PageableDefault Pageable pageable
     ) {
-        return petService.getAllPetsByOwner(userId, pageable);    
+        return petService.getAllPetsByOwner(clientId, pageable);    
     }
 
     @DeleteMapping(value = "/{id}")
-    @Operation(summary = "Remove a user", tags = {"User"})
-    public ResponseEntity<?> deleteUser(@PathVariable("id") Long id) {
-        service.removeUser(id);
+    @Operation(summary = "Remove a client", tags = {"Client"})
+    public ResponseEntity<?> deleteClient(@PathVariable("id") Long id) {
+        service.deleteClient(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping(value = "/{id}/pet/count")
-    @Operation(summary = "count number of pets of specific user")
-    public Long countPetOfUser(@PathVariable("id") Long userId) {
-        return petService.getNumberOfPetsByUser(userId);
+    @Operation(summary = "count number of pets of specific client")
+    public Long countPetOfClient(@PathVariable("id") Long clientId) {
+        return petService.getNumberOfPetsByClient(clientId);
     }
 }

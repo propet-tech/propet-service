@@ -9,7 +9,7 @@ public class PetDto implements Serializable {
 
     private Long id;
     private String name;
-    private Long userId;
+    private Long clientId;
     private Float weight;
     private String description;
 

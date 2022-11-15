@@ -13,16 +13,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "users")
-public class User implements Serializable {
+@Table(name = "clients")
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(nullable = false)
+    private String name;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(length = 11, nullable = false, unique = true)
+    private String cpf;
+
+    @Column(nullable = false)
+    private String email;
+
 }

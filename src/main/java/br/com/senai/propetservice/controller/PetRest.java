@@ -66,7 +66,7 @@ public class PetRest {
     }
 
     @GetMapping(value = "/count")
-    @Operation(summary = "count number of pets for all users", tags = {"Pet"})
+    @Operation(summary = "count number of pets for all clients", tags = {"Pet"})
     public Long countPet() {
         return service.getNumberOfPets();
     }

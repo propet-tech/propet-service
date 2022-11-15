@@ -6,12 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import br.com.senai.propetservice.converters.GenericMapper;
 import br.com.senai.propetservice.converters.PetMapper;
 import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.models.Pet;
 import br.com.senai.propetservice.repository.PetRepo;
-import br.com.senai.propetservice.repository.UserRepo;
+import br.com.senai.propetservice.repository.ClientRepo;
 
 @Service
 public class PetService {
@@ -20,7 +19,7 @@ public class PetService {
     private PetRepo repository;
 
     @Autowired
-    private UserRepo userRepo;
+    private ClientRepo clientRepo;
 
     private PetMapper mapper = Mappers.getMapper(PetMapper.class);
 
@@ -43,8 +42,8 @@ public class PetService {
         );
     }
 
-    public Page<PetDto> getAllPetsByOwner(Long userId, Pageable pageable) {
-        return repository.getAllByUser(pageable, userId).map(
+    public Page<PetDto> getAllPetsByOwner(Long clientId, Pageable pageable) {
+        return repository.getAllByClient(pageable, clientId).map(
             pet -> mapper.map(pet)
         );
     }
@@ -63,10 +62,10 @@ public class PetService {
         return repository.count();
     }
     
-    public Long getNumberOfPetsByUser(Long userId) {
-        if (userRepo.existsById(userId))
-            return repository.countByUser(userId); 
+    public Long getNumberOfPetsByClient(Long clientId) {
+        if (clientRepo.existsById(clientId))
+            return repository.countByClient(clientId); 
         else
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("Client not found");
     }
 }
