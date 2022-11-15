@@ -11,12 +11,12 @@ import br.com.senai.propetservice.models.Pet;
 public interface PetMapper {
 
     @Mappings({
-        @Mapping(target = "userId", source = "pet.user.id")
+        @Mapping(target = "clientId", source = "pet.client.id")
     })
     PetDto map(Pet pet);
 
     @Mappings({
-        @Mapping(target = "user.id", source = "pet.userId")
+        @Mapping(target = "client.id", source = "pet.clientId")
     })
     Pet map(PetDto pet);
 

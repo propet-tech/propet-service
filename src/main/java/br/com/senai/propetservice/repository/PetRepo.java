@@ -12,8 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PetRepo extends JpaRepository<Pet, Long> {
 
-    Page<Pet> getAllByUser(Pageable Pageable, Long userId);
+    @Query("SELECT p FROM Pet p WHERE p.client.id = :clientId")
+    Page<Pet> getAllByClient(Pageable Pageable,@Param("clientId") Long clientId);
 
-    @Query("SELECT count(p) FROM Pet p WHERE p.user.id =:userId")
-    Long countByUser(@Param("userId") Long userId);
+    @Query("SELECT count(p) FROM Pet p WHERE p.client.id =:clientId")
+    Long countByClient(@Param("clientId") Long clientId);
 }
