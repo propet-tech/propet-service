@@ -8,7 +8,8 @@ import lombok.Data;
 public class ClientDto implements Serializable {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String cpf;
+    private String email;
 
 }
