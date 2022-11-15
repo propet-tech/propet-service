@@ -2,8 +2,7 @@ server:
   port: 8088
   cors:
     origin-patterns: 
-      - locahost
-      - bacate
+      - 'http://localhost:4200'
 spring:
   output:
     ansi:
