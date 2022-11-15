@@ -45,7 +45,7 @@ public class PetService {
 
     public Page<PetDto> getAllPetsByOwner(Long userId, Pageable pageable) {
         return repository.getAllByUser(pageable, userId).map(
-            pet -> GenericMapper.parseObject(pet, PetDto.class)
+            pet -> mapper.map(pet)
         );
     }
 
@@ -55,7 +55,7 @@ public class PetService {
 
     public void updatePet(PetDto pet) {
         repository.save(
-                GenericMapper.parseObject(pet, Pet.class)
+            mapper.map(pet)
         );
     }
 
