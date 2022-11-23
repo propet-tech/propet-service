@@ -76,4 +76,12 @@ public class ClientRest {
     public Long countPetOfClient(@PathVariable("id") Long clientId) {
         return petService.getNumberOfPetsByClient(clientId);
     }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Get all clients")
+    public Page<ClientDto> getAllClients(
+        @ParameterObject @PageableDefault Pageable pageable
+    ) {
+        return service.getAllClients(pageable);
+    }
 }
