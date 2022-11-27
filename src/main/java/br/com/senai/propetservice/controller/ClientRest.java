@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.senai.propetservice.data.PetDto;
 import br.com.senai.propetservice.data.ClientDto;
-import br.com.senai.propetservice.service.PetService;
+import br.com.senai.propetservice.data.response.PetResponseDto;
 import br.com.senai.propetservice.service.ClientService;
+import br.com.senai.propetservice.service.PetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -57,7 +57,7 @@ public class ClientRest {
 
     @GetMapping(value = "/{id}/pet")
     @Operation(summary = "Get all pets of specific client", tags = {"Client"})
-    public Page<PetDto> getAllPetsByOwner(
+    public Page<PetResponseDto> getAllPetsByOwner(
         @PathVariable("id") Long clientId,
         @ParameterObject @PageableDefault Pageable pageable
     ) {

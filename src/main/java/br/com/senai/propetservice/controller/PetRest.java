@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.senai.propetservice.data.PetDto;
+import br.com.senai.propetservice.data.request.PetRequestDto;
+import br.com.senai.propetservice.data.response.PetResponseDto;
 import br.com.senai.propetservice.service.PetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,20 +33,20 @@ public class PetRest {
 
     @PostMapping()
     @Operation(summary = "Create a new Pet", tags = {"Pet"})
-    public ResponseEntity<?> createPet(@RequestBody PetDto pet) {
+    public ResponseEntity<?> createPet(@RequestBody PetRequestDto pet) {
         service.createPet(pet);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping(value = "/{id}")
     @Operation(summary = "Get pet by id", tags = {"Pet"})
-    public PetDto getPet(@PathVariable("id") Long petId) {
+    public PetResponseDto getPet(@PathVariable("id") Long petId) {
         return service.getPet(petId);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Get all pets", tags = {"Pet"})
-    public Page<PetDto> getAllPets(
+    public Page<PetResponseDto> getAllPets(
         @ParameterObject @PageableDefault Pageable pageable
     ) {
         return service.getAllPets(pageable);
@@ -60,7 +61,7 @@ public class PetRest {
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Update pet information", tags = {"Pet"})
-    public ResponseEntity<?> updatePet(@RequestBody PetDto pet) {
+    public ResponseEntity<?> updatePet(@RequestBody PetRequestDto pet) {
         service.updatePet(pet);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

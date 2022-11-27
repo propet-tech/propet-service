@@ -20,6 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry
             .addMapping("/**")
             .allowedMethods("*")
-            .allowedOriginPatterns(corsOriginPattern.getOriginPatterns());
+            .allowedOriginPatterns(corsOriginPattern.getOriginPatterns())
+            .allowCredentials(true);
     }
 }

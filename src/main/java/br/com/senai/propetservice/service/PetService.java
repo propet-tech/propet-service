@@ -7,10 +7,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.senai.propetservice.converters.PetMapper;
-import br.com.senai.propetservice.data.PetDto;
+import br.com.senai.propetservice.data.request.PetRequestDto;
+import br.com.senai.propetservice.data.response.PetResponseDto;
 import br.com.senai.propetservice.models.Pet;
-import br.com.senai.propetservice.repository.PetRepo;
 import br.com.senai.propetservice.repository.ClientRepo;
+import br.com.senai.propetservice.repository.PetRepo;
 
 @Service
 public class PetService {
@@ -23,26 +24,26 @@ public class PetService {
 
     private PetMapper mapper = Mappers.getMapper(PetMapper.class);
 
-    public void createPet(PetDto pet) {
+    public void createPet(PetRequestDto pet) {
         repository.save(
             mapper.map(pet)
         );
     }
 
-    public PetDto getPet(Long id) {
+    public PetResponseDto getPet(Long id) {
         Pet pet = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("Pet Not Found")
         );
         return mapper.map(pet);
     }
 
-    public Page<PetDto> getAllPets(Pageable pageable) {
+    public Page<PetResponseDto> getAllPets(Pageable pageable) {
         return repository.findAll(pageable).map(
             pet -> mapper.map(pet)
         );
     }
 
-    public Page<PetDto> getAllPetsByOwner(Long clientId, Pageable pageable) {
+    public Page<PetResponseDto> getAllPetsByOwner(Long clientId, Pageable pageable) {
         return repository.getAllByClient(pageable, clientId).map(
             pet -> mapper.map(pet)
         );
@@ -52,7 +53,7 @@ public class PetService {
         repository.deleteById(id);
     }
 
-    public void updatePet(PetDto pet) {
+    public void updatePet(PetRequestDto pet) {
         repository.save(
             mapper.map(pet)
         );

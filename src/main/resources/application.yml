@@ -3,6 +3,7 @@ server:
   cors:
     origin-patterns: 
       - 'http://localhost:4200'
+      - 'http://localhost:8050'
 spring:
   security:
     oauth2:
