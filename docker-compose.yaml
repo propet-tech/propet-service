@@ -25,7 +25,10 @@ services:
       - db
       - keycloak
     environment:
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
       POSTGRES_IP: db
+      POSTGRES_USER: postgres
       POSTGRES_PASSWD: admin
       KEYCLOAK_IP: keycloak
     ports:
