@@ -1,12 +1,12 @@
 package br.com.senai.propetservice.service;
 
-import br.com.senai.propetservice.converters.GenericMapper;
-import br.com.senai.propetservice.models.Client;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import br.com.senai.propetservice.converters.ClientMapper;
 import br.com.senai.propetservice.data.ClientDto;
 import br.com.senai.propetservice.repository.ClientRepo;
 
@@ -16,9 +16,11 @@ public class ClientService {
     @Autowired
     private ClientRepo repository;
 
+    private ClientMapper mapper = Mappers.getMapper(ClientMapper.class);
+
     public void create(ClientDto client) {
         repository.save(
-                GenericMapper.parseObject(client, Client.class)
+            mapper.map(client)
         );
     }
 
@@ -27,12 +29,12 @@ public class ClientService {
                 () -> new RuntimeException("Client Not Found")
         );
 
-        return GenericMapper.parseObject(client, ClientDto.class);
+        return mapper.map(client);
     }
 
     public void updateClient(ClientDto client) {
         repository.save(
-                GenericMapper.parseObject(client, Client.class)
+            mapper.map(client)
         );
     }
 
@@ -42,7 +44,7 @@ public class ClientService {
 
     public Page<ClientDto> getAllClients(Pageable pageable) {
         return repository.findAll(pageable).map(
-            client -> GenericMapper.parseObject(client, ClientDto.class)
+            client -> mapper.map(client)
         );
     }
 }

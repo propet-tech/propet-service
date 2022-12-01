@@ -30,7 +30,7 @@ services:
       POSTGRES_IP: db
       POSTGRES_USER: postgres
       POSTGRES_PASSWD: admin
-      CORS_URL: host.docker.internal
       KEYCLOAK_IP: keycloak
+      KEYCLOAK_PORT: 8080
     ports:
       - 8088:8088
