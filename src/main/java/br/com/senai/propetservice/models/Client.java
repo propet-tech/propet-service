@@ -17,10 +17,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "clients")
 public class Client implements Serializable {
 
