@@ -84,4 +84,10 @@ public class ClientRest {
     ) {
         return service.getAllClients(pageable);
     }
+
+    @GetMapping(value = "/count")
+    @Operation(summary = "Get number of clients")
+    public long countClients() {
+        return service.count();
+    }
 }

@@ -47,4 +47,8 @@ public class ClientService {
             client -> mapper.map(client)
         );
     }
+
+    public long count() {
+        return repository.count();
+    }
 }
