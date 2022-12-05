@@ -50,4 +50,10 @@ public class BreedRest {
         breedService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping(value = "/{id}")
+    @Operation(summary = "get pet breed by id")
+    public BreedDto getById(@PathParam("id") Long id) {
+        return breedService.getById(id);
+    }
 }

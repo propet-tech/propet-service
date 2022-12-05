@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.senai.propetservice.converters.BreedMapper;
 import br.com.senai.propetservice.data.BreedDto;
+import br.com.senai.propetservice.models.exceptions.NotFoundException;
 import br.com.senai.propetservice.repository.BreedRepo;
 
 @Service
@@ -31,6 +32,14 @@ public class BreedService {
     public Page<BreedDto> getAll(Pageable pageable) {
         return repo.findAll(pageable).map(
             entity -> mapper.map(entity)
+        );
+    }
+
+    public BreedDto getById(Long id) {
+        return mapper.map(
+            repo.findById(id).orElseThrow(
+                () -> new NotFoundException("No Breed with this id find")
+            )
         );
     }
 }
