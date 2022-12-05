@@ -2,8 +2,7 @@ server:
   port: 8088
   cors:
     origin-patterns: 
-      - http://localhost:4200'
-      - http://localhost:8050
+      - http://localhost:4200
 spring:
   security:
     oauth2:
@@ -15,7 +14,7 @@ spring:
       enabled: ALWAYS
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRES_IP}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}?characterEncoding=utf8?useTimezone=true?serverTimezone=UTC
+    url: jdbc:postgresql://${POSTGRES_IP:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}?characterEncoding=utf8?useTimezone=true?serverTimezone=UTC
     password: ${POSTGRES_PASSWD}
     username: ${POSTGRES_USER:postgres}
   jpa:
