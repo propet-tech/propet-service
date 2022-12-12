@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-    import org.mockito.Mockito;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
@@ -31,26 +31,12 @@ public class ClientServiceTest {
     @InjectMocks
     private ClientService service;
 
-    private List<Client> clients = new ArrayList<>();
-
     @Mock
     private ClientRepo repo;
 
     @BeforeEach
     void setUp() throws Exception {
         MockitoAnnotations.openMocks(this);
-        clients.add(
-            Client.builder()
-                .id(1L)
-                .name("test")
-            .build()
-        );
-        clients.add(
-            Client.builder()
-                .id(2L)
-                .name("test2")
-            .build()
-        );
     }
 
     @Test
@@ -71,7 +57,12 @@ public class ClientServiceTest {
 
     @Test
     void testGetClientById() {
-        Mockito.when(repo.findById(1L)).thenReturn(Optional.of(clients.get(0)));
+        var client = Client.builder()
+                .id(1L)
+                .name("test")
+            .build();
+
+        Mockito.when(repo.findById(1L)).thenReturn(Optional.of(client));
 
         var result = service.getClientById(1L);
 
@@ -87,7 +78,7 @@ public class ClientServiceTest {
 
         ArgumentCaptor<Client> captor = ArgumentCaptor.forClass(Client.class);
 
-        service.create(dto);
+        service.updateClient(dto);
         Mockito.verify(repo).save(captor.capture());
         var client = captor.getValue();
         
@@ -95,8 +86,7 @@ public class ClientServiceTest {
         assertEquals("test1", client.getName());
     }
 
-    @Test
-    void testDeleteClient() {
+    @Test void testDeleteClient() {
         ArgumentCaptor<Long> captor = ArgumentCaptor.forClass(Long.class);
         service.deleteClient(1L);
         Mockito.verify(repo).deleteById(captor.capture());
@@ -105,6 +95,21 @@ public class ClientServiceTest {
 
     @Test
     void testGetAllClients() {
+        List<Client> clients = new ArrayList<>();
+
+        clients.add(
+            Client.builder()
+                .id(1L)
+                .name("test")
+            .build()
+        );
+        clients.add(
+            Client.builder()
+                .id(2L)
+                .name("test2")
+            .build()
+        );
+
         Pageable pageable = PageRequest.of(0, 2);
         Mockito.when(repo.findAll(pageable)).thenReturn(new PageImpl<>(clients));
 
@@ -114,5 +119,4 @@ public class ClientServiceTest {
         assertEquals(result.getTotalElements(), 2);
         assertEquals(result.getContent().get(1).getName(), "test2");
     }
-
 }
