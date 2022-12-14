@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.senai.propetservice.converters.ClientMapper;
 import br.com.senai.propetservice.data.ClientDto;
+import br.com.senai.propetservice.models.exceptions.NotFoundException;
 import br.com.senai.propetservice.repository.ClientRepo;
 
 @Service
@@ -26,7 +27,7 @@ public class ClientService {
 
     public ClientDto getClientById(Long id) {
         var client = repository.findById(id).orElseThrow(
-                () -> new RuntimeException("Client Not Found")
+            () -> new NotFoundException("Client Not Found")
         );
 
         return mapper.map(client);

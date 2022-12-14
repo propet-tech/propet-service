@@ -10,6 +10,7 @@ import br.com.senai.propetservice.converters.PetMapper;
 import br.com.senai.propetservice.data.request.PetRequestDto;
 import br.com.senai.propetservice.data.response.PetResponseDto;
 import br.com.senai.propetservice.models.Pet;
+import br.com.senai.propetservice.models.exceptions.NotFoundException;
 import br.com.senai.propetservice.repository.ClientRepo;
 import br.com.senai.propetservice.repository.PetRepo;
 
@@ -32,7 +33,7 @@ public class PetService {
 
     public PetResponseDto getPet(Long id) {
         Pet pet = repository.findById(id).orElseThrow(
-                () -> new RuntimeException("Pet Not Found")
+            () -> new NotFoundException("Pet Not Found")
         );
         return mapper.map(pet);
     }
@@ -67,6 +68,6 @@ public class PetService {
         if (clientRepo.existsById(clientId))
             return repository.countByClient(clientId); 
         else
-            throw new RuntimeException("Client not found");
+            throw new NotFoundException("Client not found");
     }
 }
