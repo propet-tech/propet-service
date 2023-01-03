@@ -1,9 +1,13 @@
 server:
-  port: 8088
   cors:
     origin-patterns: 
       - localhost:4200
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${KEYCLOAK_IP:localhost}:${KEYCLOAK_PORT:8050}/realms/propet
   output:
     ansi:
       enabled: ALWAYS
