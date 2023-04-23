@@ -1,13 +1,18 @@
 package br.com.senai.propetservice.service;
 
+import javax.transaction.Transactional;
+
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import br.com.senai.propetservice.controller.HelloMessage;
 import br.com.senai.propetservice.converters.PetShopMapper;
 import br.com.senai.propetservice.data.PetShopDto;
+import br.com.senai.propetservice.models.enums.ServiceStatus;
 import br.com.senai.propetservice.models.exceptions.NotFoundException;
 import br.com.senai.propetservice.repository.PetShopRepo;
 
@@ -18,6 +23,18 @@ public class PetShopService {
     private PetShopRepo petShopRepo;
 
     private PetShopMapper mapper = Mappers.getMapper(PetShopMapper.class);
+
+    @Autowired
+    private SimpMessagingTemplate template;
+
+    @Transactional
+    public void updateServiceStatus(Long id, ServiceStatus status) {
+        petShopRepo.changeServiceStatus(id, status);
+        var service = petShopRepo.findById(id).map(
+            pet -> mapper.map(pet)
+        ).get();
+        template.convertAndSend("/topic/greetings", new HelloMessage<PetShopDto>(service));
+    }
 
     public Page<PetShopDto> getAllActive(Pageable pageable) {
         return petShopRepo.findAllActive(pageable).map(
