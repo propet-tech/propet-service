@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nimbusds.jose.shaded.json.JSONObject;
 
 import lombok.extern.slf4j.Slf4j;
+import net.minidev.json.JSONObject;
 
 @Component
 @Slf4j

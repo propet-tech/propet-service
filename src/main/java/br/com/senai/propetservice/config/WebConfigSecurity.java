@@ -3,7 +3,7 @@ package br.com.senai.propetservice.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
+@EnableMethodSecurity(
     jsr250Enabled = true,
     prePostEnabled = true
 )
@@ -34,13 +34,12 @@ public class WebConfigSecurity {
         http.sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests(
-            auth -> {
-                auth.antMatchers("/api/swagger-ui/**").permitAll();
-                auth.antMatchers("/api/v3/api-docs/**").permitAll();
-                auth.anyRequest().authenticated();
-            }
-        );
+        http.authorizeHttpRequests(auth -> {
+            auth.requestMatchers("/api/swagger-ui/**").permitAll();
+            auth.requestMatchers("/api/v3/api-docs/**").permitAll();
+            auth.requestMatchers("/api/ws").permitAll();
+            auth.anyRequest().authenticated();
+        });
 
         http.oauth2ResourceServer(
             oauth -> {

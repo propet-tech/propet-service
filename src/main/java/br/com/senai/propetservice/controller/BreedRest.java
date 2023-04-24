@@ -1,6 +1,6 @@
 package br.com.senai.propetservice.controller;
 
-import javax.websocket.server.PathParam;
+import jakarta.websocket.server.PathParam;
 
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;

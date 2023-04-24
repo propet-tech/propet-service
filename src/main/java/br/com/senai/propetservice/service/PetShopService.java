@@ -1,6 +1,6 @@
 package br.com.senai.propetservice.service;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
