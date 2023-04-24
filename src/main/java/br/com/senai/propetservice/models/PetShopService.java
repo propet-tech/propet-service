@@ -1,8 +1,8 @@
 package br.com.senai.propetservice.models;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import br.com.senai.propetservice.models.enums.ServiceStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,8 +13,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
-import br.com.senai.propetservice.models.enums.ServiceStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,15 +25,15 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "petshop")
-public class PetShop implements Serializable {
+@Table(name = "petshop_services")
+public class PetShopService {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private Client client;
+    private User user;
 
     @OneToOne
     private Pet pet;

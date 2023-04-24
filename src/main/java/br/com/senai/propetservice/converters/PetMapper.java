@@ -1,4 +1,4 @@
-package br.com.senai.propetservice.converters;
+    package br.com.senai.propetservice.converters;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,12 +12,12 @@ import br.com.senai.propetservice.models.Pet;
 public interface PetMapper {
 
     @Mappings({
-        @Mapping(target = "clientId", source = "pet.client.id")
+        @Mapping(target = "userId", source = "pet.user.id")
     })
     PetResponseDto map(Pet pet);
 
     @Mappings({
-        @Mapping(target = "client.id", source = "pet.clientId"),
+        @Mapping(target = "user.id", source = "pet.userId"),
         @Mapping(target = "breed.id", source = "pet.breedId")
     })
     Pet map(PetRequestDto pet);

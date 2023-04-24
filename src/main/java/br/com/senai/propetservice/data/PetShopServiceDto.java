@@ -2,15 +2,16 @@ package br.com.senai.propetservice.data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import br.com.senai.propetservice.models.enums.ServiceStatus;
 import lombok.Data;
 
 @Data
-public class PetShopDto implements Serializable {
+public class PetShopServiceDto implements Serializable {
 
     private Long id;
-    private Long clientId;
+    private UUID userId;
     private Long petId;
     private String description;
     private Boolean active;

@@ -1,6 +1,6 @@
 package br.com.senai.propetservice.controller;
 
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.senai.propetservice.data.PetShopDto;
+import br.com.senai.propetservice.data.PetShopServiceDto;
 import br.com.senai.propetservice.models.enums.ServiceStatus;
 import br.com.senai.propetservice.service.PetShopService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,7 +42,7 @@ public class PetShopRest {
 
     @Operation(summary = "Create new petshop service")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createService(@RequestBody PetShopDto service) {
+    public ResponseEntity<?> createService(@RequestBody PetShopServiceDto service) {
         petShopService.createService(service);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -56,20 +56,20 @@ public class PetShopRest {
 
     @Operation(summary = "Find petshop service by id")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PetShopDto getPetShopService(@PathVariable("id") Long id) {
+    public PetShopServiceDto getPetShopService(@PathVariable("id") Long id) {
         return petShopService.getPetShopService(id);
     }
 
     @Operation(summary = "Update info for petshop service")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updatePetShopService(@RequestBody PetShopDto service) {
+    public ResponseEntity<?> updatePetShopService(@RequestBody PetShopServiceDto service) {
         petShopService.updatePetShop(service);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @Operation(summary = "Get all available petshop services")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<PetShopDto> getAllPetShopServices(
+    public Page<PetShopServiceDto> getAllPetShopServices(
         @ParameterObject @PageableDefault Pageable pageable
     ) {
         return petShopService.getAllServices(pageable);
@@ -80,7 +80,7 @@ public class PetShopRest {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     @Operation(summary = "Get all active petshop services")
-    public Page<PetShopDto> getAllActive(
+    public Page<PetShopServiceDto> getAllActive(
         @ParameterObject @PageableDefault Pageable pageable
     ) {
         return petShopService.getAllActive(pageable);

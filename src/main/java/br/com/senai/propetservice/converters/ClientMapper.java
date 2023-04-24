@@ -1,14 +1,14 @@
 package br.com.senai.propetservice.converters;
 
-import org.mapstruct.Mapper;
+// import org.mapstruct.Mapper;
+//
+// import br.com.senai.propetservice.data.ClientDto;
+// import br.com.senai.propetservice.models.User;
 
-import br.com.senai.propetservice.data.ClientDto;
-import br.com.senai.propetservice.models.Client;
-
-@Mapper
+// @Mapper
 public interface ClientMapper {
 
-    Client map(ClientDto dto);
-
-    ClientDto map(Client entity);
+    // User map(ClientDto dto);
+    //
+    // ClientDto map(User entity);
 }

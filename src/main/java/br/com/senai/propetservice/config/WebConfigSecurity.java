@@ -1,6 +1,5 @@
 package br.com.senai.propetservice.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -12,20 +11,14 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(
-    jsr250Enabled = true,
-    prePostEnabled = true
-)
+@EnableMethodSecurity(jsr250Enabled = true, prePostEnabled = true)
 public class WebConfigSecurity {
 
-    @Autowired
-    private JwtRoleConveter jwtRoleConveter;
-   
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // Get User roles from Jwt
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
-        converter.setJwtGrantedAuthoritiesConverter(jwtRoleConveter);
+        converter.setJwtGrantedAuthoritiesConverter(new JwtRoleConveter());
 
         // Disable Cors and csrf
         http.cors(cors -> cors.disable());
@@ -35,9 +28,7 @@ public class WebConfigSecurity {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/api/swagger-ui/**").permitAll();
-            auth.requestMatchers("/api/v3/api-docs/**").permitAll();
-            auth.requestMatchers("/api/ws").permitAll();
+            auth.requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll();
             auth.anyRequest().authenticated();
         });
 
@@ -47,7 +38,6 @@ public class WebConfigSecurity {
                     .jwtAuthenticationConverter(converter);
             }
         );
-
         return http.build();
     }
 }

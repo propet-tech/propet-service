@@ -38,7 +38,7 @@ public class Pet implements Serializable {
 
     @ManyToOne
     @JoinColumn(nullable = false)
-    private Client client;
+    private User user;
 
     @ManyToOne
     @JoinColumn(nullable = false)

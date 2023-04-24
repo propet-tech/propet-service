@@ -11,16 +11,16 @@ import org.springframework.stereotype.Service;
 
 import br.com.senai.propetservice.controller.HelloMessage;
 import br.com.senai.propetservice.converters.PetShopMapper;
-import br.com.senai.propetservice.data.PetShopDto;
+import br.com.senai.propetservice.data.PetShopServiceDto;
 import br.com.senai.propetservice.models.enums.ServiceStatus;
 import br.com.senai.propetservice.models.exceptions.NotFoundException;
-import br.com.senai.propetservice.repository.PetShopRepo;
+import br.com.senai.propetservice.repository.PetShopServiceRepo;
 
 @Service
 public class PetShopService {
     
     @Autowired
-    private PetShopRepo petShopRepo;
+    private PetShopServiceRepo petShopRepo;
 
     private PetShopMapper mapper = Mappers.getMapper(PetShopMapper.class);
 
@@ -33,22 +33,22 @@ public class PetShopService {
         var service = petShopRepo.findById(id).map(
             pet -> mapper.map(pet)
         ).get();
-        template.convertAndSend("/topic/greetings", new HelloMessage<PetShopDto>(service));
+        template.convertAndSend("/topic/greetings", new HelloMessage<PetShopServiceDto>(service));
     }
 
-    public Page<PetShopDto> getAllActive(Pageable pageable) {
+    public Page<PetShopServiceDto> getAllActive(Pageable pageable) {
         return petShopRepo.findAllActive(pageable).map(
             petshop -> mapper.map(petshop)
         );
     }
 
-    public Page<PetShopDto> getAllServices(Pageable pageable) {
+    public Page<PetShopServiceDto> getAllServices(Pageable pageable) {
         return petShopRepo.findAll(pageable).map(
             petshop -> mapper.map(petshop)
         );
     }
 
-    public void createService(PetShopDto petShop) {
+    public void createService(PetShopServiceDto petShop) {
         petShop.setId(null);
         petShopRepo.save(
             mapper.map(petShop)
@@ -65,7 +65,7 @@ public class PetShopService {
         petShopRepo.deleteById(id);
     }
 
-    public PetShopDto getPetShopService(Long id) {
+    public PetShopServiceDto getPetShopService(Long id) {
         return mapper.map(
             petShopRepo.findById(id).orElseThrow(
                 () -> new NotFoundException(
@@ -79,7 +79,7 @@ public class PetShopService {
         return petShopRepo.count();
     }
 
-    public void updatePetShop(PetShopDto service) {
+    public void updatePetShop(PetShopServiceDto service) {
         if (!petShopRepo.existsById(service.getId())) {
             throw new NotFoundException( 
                 String.format("PetShop sevice id: %d not found", service.getId())

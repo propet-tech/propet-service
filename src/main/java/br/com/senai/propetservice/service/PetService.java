@@ -11,7 +11,7 @@ import br.com.senai.propetservice.data.request.PetRequestDto;
 import br.com.senai.propetservice.data.response.PetResponseDto;
 import br.com.senai.propetservice.models.Pet;
 import br.com.senai.propetservice.models.exceptions.NotFoundException;
-import br.com.senai.propetservice.repository.ClientRepo;
+import br.com.senai.propetservice.repository.UserRepo;
 import br.com.senai.propetservice.repository.PetRepo;
 
 @Service
@@ -20,8 +20,8 @@ public class PetService {
     @Autowired
     private PetRepo repository;
 
-    @Autowired
-    private ClientRepo clientRepo;
+    // @Autowired
+    // private ClientRepo clientRepo;
 
     private PetMapper mapper = Mappers.getMapper(PetMapper.class);
 
@@ -44,11 +44,11 @@ public class PetService {
         );
     }
 
-    public Page<PetResponseDto> getAllPetsByOwner(Long clientId, Pageable pageable) {
-        return repository.getAllByClient(pageable, clientId).map(
-            pet -> mapper.map(pet)
-        );
-    }
+    // public Page<PetResponseDto> getAllPetsByOwner(Long clientId, Pageable pageable) {
+    //     return repository.getAllByClient(pageable, clientId).map(
+    //         pet -> mapper.map(pet)
+    //     );
+    // }
 
     public void deletePet(Long id) {
         repository.deleteById(id);
@@ -64,10 +64,10 @@ public class PetService {
         return repository.count();
     }
     
-    public Long getNumberOfPetsByClient(Long clientId) {
-        if (clientRepo.existsById(clientId))
-            return repository.countByClient(clientId); 
-        else
-            throw new NotFoundException("Client not found");
-    }
+    // public Long getNumberOfPetsByClient(Long clientId) {
+    //     if (clientRepo.existsById(clientId))
+    //         return repository.countByClient(clientId); 
+    //     else
+    //         throw new NotFoundException("Client not found");
+    // }
 }

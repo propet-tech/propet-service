@@ -1,6 +1,7 @@
 package br.com.senai.propetservice.data.response;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import br.com.senai.propetservice.models.PetBreed;
 import br.com.senai.propetservice.models.enums.PetCategory;
@@ -11,7 +12,7 @@ public class PetResponseDto implements Serializable {
 
     private Long id;
     private String name;
-    private Long clientId;
+    private UUID userId;
     private PetBreed breed;
     private PetCategory category;
     private Float weight;

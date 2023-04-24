@@ -1,6 +1,7 @@
 package br.com.senai.propetservice.data.request;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import br.com.senai.propetservice.models.enums.PetCategory;
 import lombok.Builder;
@@ -12,7 +13,7 @@ public class PetRequestDto implements Serializable {
 
     private Long id;
     private String name;
-    private Long clientId;
+    private UUID userId;
     private Long breedId;
     private PetCategory category;
     private Float weight;

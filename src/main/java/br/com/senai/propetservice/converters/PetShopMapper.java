@@ -4,22 +4,22 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import br.com.senai.propetservice.data.PetShopDto;
-import br.com.senai.propetservice.models.PetShop;
+import br.com.senai.propetservice.data.PetShopServiceDto;
+import br.com.senai.propetservice.models.PetShopService;
 
 @Mapper
 public interface PetShopMapper {
 
     @Mappings({
-        @Mapping(source = "petshop.client.id", target = "clientId"),
-        @Mapping(source = "petshop.pet.id", target = "petId")
+        @Mapping(source = "petShopService.user.id", target = "userId"),
+        @Mapping(source = "petShopService.pet.id", target = "petId")
     })
-    PetShopDto map(PetShop petshop);
+    PetShopServiceDto map(PetShopService petShopService);
 
 
     @Mappings({
-        @Mapping(source = "dto.clientId", target = "client.id"),
+        @Mapping(source = "dto.userId", target = "user.id"),
         @Mapping(source = "dto.petId", target = "pet.id")
     })
-    PetShop map(PetShopDto dto);
+    PetShopService map(PetShopServiceDto dto);
 }
