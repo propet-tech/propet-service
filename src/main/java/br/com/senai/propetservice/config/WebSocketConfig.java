@@ -9,7 +9,9 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketSecurityConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer {
+@SuppressWarnings("deprecation")
+// Usar esse método depreciado até o spring 6 tiver um metodo adequado para desabilitar o csrf
+public class WebSocketConfig extends AbstractSecurityWebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {

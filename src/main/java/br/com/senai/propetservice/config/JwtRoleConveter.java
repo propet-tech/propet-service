@@ -15,15 +15,15 @@ public class JwtRoleConveter implements Converter<Jwt, Collection<GrantedAuthori
 
     @Override
     public Collection<GrantedAuthority> convert(Jwt source) {
-            LinkedTreeMap<String, ArrayList<String>> object = source.getClaim("realm_access");
-            ArrayList<String> roles = object.get("roles");
-            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        LinkedTreeMap<String, ArrayList<String>> object = source.getClaim("realm_access");
+        ArrayList<String> roles = object.get("roles");
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
-            for (String role : roles) {
-                var authority = new SimpleGrantedAuthority("ROLE_" + role);
-                grantedAuthorities.add(authority);
-            }
-            
-            return grantedAuthorities;
+        for (String role : roles) {
+            var authority = new SimpleGrantedAuthority("ROLE_" + role);
+            grantedAuthorities.add(authority);
+        }
+
+        return grantedAuthorities;
     }
 }
