@@ -11,7 +11,6 @@ import lombok.Data;
 @Builder
 public class PetRequestDto implements Serializable {
 
-    private Long id;
     private String name;
     private UUID userId;
     private Long breedId;

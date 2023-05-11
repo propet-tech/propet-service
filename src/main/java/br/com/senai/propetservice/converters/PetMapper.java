@@ -3,12 +3,13 @@
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.MappingConstants.ComponentModel;
 
 import br.com.senai.propetservice.data.request.PetRequestDto;
 import br.com.senai.propetservice.data.response.PetResponseDto;
 import br.com.senai.propetservice.models.Pet;
 
-@Mapper
+@Mapper(componentModel = ComponentModel.SPRING)
 public interface PetMapper {
 
     @Mappings({
