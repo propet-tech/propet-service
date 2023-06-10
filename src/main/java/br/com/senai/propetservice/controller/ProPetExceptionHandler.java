@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.senai.propetservice.data.ExceptionDto;
+import br.com.senai.propetservice.models.exceptions.FileStorageException;
 import br.com.senai.propetservice.models.exceptions.NotFoundException;
 
 @RestController
@@ -26,5 +27,16 @@ public class ProPetExceptionHandler extends ResponseEntityExceptionHandler {
         );
 
         return new ResponseEntity<ExceptionDto>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FileStorageException.class)
+    public ResponseEntity<ExceptionDto> handlerStorage(FileStorageException ex, WebRequest req) {
+        ExceptionDto response = new ExceptionDto(
+            LocalDateTime.now(),
+            ex.getMessage(),
+            req.getDescription(true)
+        );
+
+        return new ResponseEntity<ExceptionDto>(response, HttpStatus.BAD_REQUEST);
     }
 }
