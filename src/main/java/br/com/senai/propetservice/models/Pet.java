@@ -1,19 +1,18 @@
 package br.com.senai.propetservice.models;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-
-import br.com.senai.propetservice.models.enums.PetCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,17 +35,15 @@ public class Pet implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private User user;
+    @OneToOne
+    private FileReference image;
+
+    @Column(nullable = false)
+    private UUID user;
 
     @ManyToOne
     @JoinColumn(nullable = false)
     private PetBreed breed;
-
-    @Column
-    @Enumerated(EnumType.STRING)
-    private PetCategory category;
 
     @Column
     private Float weight;
@@ -54,4 +51,6 @@ public class Pet implements Serializable {
     @Column
     private String description;
 
+    // @Column(columnDefinition = "boolean default false")
+        // private boolean inactive = false;
 }
