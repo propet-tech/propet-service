@@ -114,22 +114,11 @@ public class PetService {
         return repository.findAll(filter, pageable).map(pet -> mapper.map(pet));
     }
 
-    private String createImageUrl(Long id) {
-        return MvcUriComponentsBuilder
-                .fromMethodCall(MvcUriComponentsBuilder.on(PetRest.class).getPetImage(id)).toUriString();
-    }
-
 
     public PetResponse getPet(Long id) {
         Pet pet = repository.findById(id).orElseThrow(
                 () -> new NotFoundException("Pet Not Found"));
-
-        var result = mapper.map(pet);
-
-        if (pet.getImage() != null)
-            result.setImage(createImageUrl(id));
-
-        return result;
+        return mapper.map(pet);
     }
 
     public void deletePet(Long id) {

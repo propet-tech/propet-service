@@ -15,5 +15,4 @@ public class PetResponse implements Serializable {
     private PetBreed breed;
     private Float weight;
     private String description;
-
 }

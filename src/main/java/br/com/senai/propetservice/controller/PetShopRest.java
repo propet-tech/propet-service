@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.senai.propetservice.data.PetShopServiceDto;
@@ -70,9 +71,10 @@ public class PetShopRest {
     @Operation(summary = "Get all available petshop services")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<PetShopServiceDto> getAllPetShopServices(
-        @ParameterObject @PageableDefault Pageable pageable
+        @RequestParam(required = false) String search,
+        @ParameterObject Pageable pageable
     ) {
-        return petShopService.getAllServices(pageable);
+        return petShopService.getAllServices(search, pageable);
     }
 
     // @GetMapping(

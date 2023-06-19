@@ -28,12 +28,18 @@ public class PetShopService {
     private PetShopServicesViewRepo petShopRepoView;
 
     public List<PetShopServicesView> teste() {
-        return petShopRepoView.findAll(Sort.by(Sort.Direction.DESC,"links"));
+        return petShopRepoView.findAll(Sort.by(Sort.Direction.DESC, "links"));
     }
 
-    public Page<PetShopServiceDto> getAllServices(Pageable pageable) {
-        return petShopRepo.findAll(pageable).map(
-                petshop -> mapper.map(petshop));
+    public Page<PetShopServiceDto> getAllServices(String search, Pageable pageable) {
+        if (search == null || search.isBlank() || search.isEmpty()) {
+            return petShopRepo
+                .findAll(pageable).map(petshop -> mapper.map(petshop));
+        } else {
+            String[] array = {"name", "description"};
+            return petShopRepo.searchBy(search, array, pageable)
+                .map(petshop -> mapper.map(petshop));
+        }
     }
 
     public void createService(PetShopServiceDto petShop) {

@@ -22,7 +22,6 @@ public class FileLocationService {
     @Autowired
     private FileReferenceRepo fileReferenceRepo;
 
-    @Transactional
     public FileReference save(InputStream fileStream, String contentType) {
         UUID fileName = fileSystemRepository.save(fileStream);
         return fileReferenceRepo.save(new FileReference(fileName, contentType));
