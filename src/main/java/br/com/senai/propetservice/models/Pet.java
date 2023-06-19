@@ -38,7 +38,7 @@ public class Pet implements Serializable {
     @OneToOne
     private FileReference image;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "\"user\"")
     private UUID user;
 
     @ManyToOne
