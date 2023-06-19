@@ -19,8 +19,12 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        search:
+          backend:
+            type: lucene
+            directory.root: /media/HDD/spring-files/index
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+    show-sql: false
   mvc:
     servlet:
       path: "/api"

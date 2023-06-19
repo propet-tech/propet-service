@@ -1,8 +1,12 @@
 package br.com.senai.propetservice;
 
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
+import br.com.senai.propetservice.repository.search.Indexer;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -34,4 +38,10 @@ public class ProPetApplication {
         SpringApplication.run(ProPetApplication.class, args);
     }
 
+    @Bean
+    public ApplicationRunner buildIndex(Indexer indexer) throws Exception {
+        return (ApplicationArguments args) -> {
+            indexer.indexPersistedData();
+        };
+    }
 }
